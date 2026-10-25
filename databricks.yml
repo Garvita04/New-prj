@@ -1,0 +1,11 @@
+bundle:
+  name: kadel-data-pipelines
+  uuid: a77aa055-18d4-4eae-910c-2d07307218ea
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true

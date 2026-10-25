@@ -1,0 +1,30 @@
+resources:
+  jobs:
+
+    config_job:
+      name: config job
+      tasks:
+        - task_key: entity
+          notebook_task:
+            notebook_path: ../src/Config notebook.ipynb
+            source: WORKSPACE
+
+    landing_job:
+      name: Landing job
+      tasks:
+        - task_key: ingest_data
+          notebook_task:
+            notebook_path: ../src/landing.ipynb
+            source: WORKSPACE
+            base_parameters:
+              entity: "ALL"
+
+    bronze_job:
+      name: Bronze Job
+      tasks:
+        - task_key: bronze
+          notebook_task:
+            notebook_path: ../src/bronze-ingest.ipynb
+            source: WORKSPACE
+            base_parameters:
+              entity: "ALL"
