@@ -12,13 +12,225 @@ resources:
     landing_job:
       name: Landing job
       tasks:
-        - task_key: ingest_data
-          notebook_task:
-            notebook_path: ../src/landing.ipynb
-            source: WORKSPACE
+        - notebook_task:
             base_parameters:
-              entity: "ALL"
-
+              entity: ALL
+            notebook_path: ../src/landing.ipynb
+          task_key: landing
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: customers
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_customers
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Products
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_products
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: invoices
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_invoices
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: categories
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_categories
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Current_Product_Lists
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_Current_Product_Lists
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_alphabetical_list_of_products
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Customer_and_Suppliers_by_Cities
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_Customer_and_Suppliers_by_Cities
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Product_Sales_for_1997
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_Product_Sales_for_1997
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Products_Above_Average_Prices
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_Products_Above_Average_Prices
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Sales_Totals_by_Amounts
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_Sales_Totals_by_Amounts
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: employees
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_employees
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: order_details
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_order_details
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: order_details_Extendeds
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_order_details_extendeds
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: order_subtotals
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_order_subtotals
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: orders
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_orders
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: Orders_Qries
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_Orders_Qries
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: products_by_categories
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_products_by_categories
+        - depends_on:
+            - task_key: landing
+          notebook_task:
+            base_parameters:
+              entity: regions
+            notebook_path: ../src/bronze-ingest.ipynb
+          task_key: bronze_regions
+        - depends_on:
+            - task_key: bronze_categories
+          notebook_task:
+            notebook_path: ../src/silver_categories.ipynb
+          task_key: Silver_categories
+        - depends_on:
+            - task_key: bronze_Product_Sales_for_1997
+          notebook_task:
+            notebook_path: ../src/silver_product_sales_for1997.ipynb
+          task_key: silver_product_sales_for_1997
+        - depends_on:
+            - task_key: bronze_Current_Product_Lists
+          notebook_task:
+            notebook_path: ../src/silver_current_product_list.ipynb
+          task_key: silver_current_products_list
+        - depends_on:
+            - task_key: bronze_Customer_and_Suppliers_by_Cities
+          notebook_task:
+            notebook_path: ../src/silver_customer_and_suppliers_by_cities.ipynb
+          task_key: silver_customer_suppliers_by_citites
+        - depends_on:
+            - task_key: bronze_customers
+          notebook_task:
+            notebook_path: ../src/silver_customers.ipynb
+          task_key: silver_customers
+        - depends_on:
+            - task_key: bronze_employees
+          notebook_task:
+            notebook_path: ../src/silver_employees.ipynb
+          task_key: silver_employees
+        - depends_on:
+            - task_key: bronze_invoices
+          notebook_task:
+            notebook_path: ../src/silver_invoices.ipynb
+          task_key: silver_invoices
+        - depends_on:
+            - task_key: bronze_order_details
+          notebook_task:
+            notebook_path: ../src/silver_order_details.ipynb
+          task_key: silver_order_details
+        - depends_on:
+            - task_key: bronze_Orders_Qries
+          notebook_task:
+            notebook_path: ../src/silver_order_qries.ipynb
+          task_key: silver_order_qries
+        - depends_on:
+            - task_key: bronze_orders
+          notebook_task:
+            notebook_path: ../src/silver_orders.ipynb
+          task_key: silver_orders
+        - depends_on:
+            - task_key: bronze_order_details_extendeds
+          notebook_task:
+            notebook_path: ../src/silver_order_details_extendeds.ipynb
+          task_key: silver_orders_details_extendeds
+        - depends_on:
+            - task_key: bronze_order_subtotals
+          notebook_task:
+            notebook_path: ../src/Silver_subtotals.ipynb
+          task_key: silver_orders_subtotals
+        - depends_on:
+            - task_key: bronze_Products_Above_Average_Prices
+          notebook_task:
+            notebook_path: ../src/silver_products_above_average_price.ipynb
+          task_key: silver_product_above_average_price
+        - depends_on:
+            - task_key: bronze_products
+          notebook_task:
+            notebook_path: ../src/silver_product.ipynb
+          task_key: silver_products
+        - depends_on:
+            - task_key: bronze_products_by_categories
+          notebook_task:
+            notebook_path: ../src/silver_products_by_categories.ipynb
+          task_key: silver_products_by_categories
+        - depends_on:
+            - task_key: bronze_regions
+          notebook_task:
+            notebook_path: ../src/silver_regions.ipynb
+          task_key: silver_regions
+        - depends_on:
+            - task_key: bronze_Sales_Totals_by_Amounts
+          notebook_task:
+            notebook_path: ../src/silver_sales_totals_by_amounts.ipynb
+          task_key: silver_sales_totals_by_amounts
+        - depends_on:
+            - task_key: bronze_alphabetical_list_of_products
+          notebook_task:
+            notebook_path: ../src/silver_alphabetical_list_of_products.ipynb
+          task_key: silver_alphabetical_list_of_products
     bronze_job:
       name: Bronze Job
       tasks:
