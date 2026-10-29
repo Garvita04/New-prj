@@ -9,7 +9,7 @@ print(f"Job parameter: {entity_param}")
 # COMMAND ----------
 
 import json
-#hey
+
 
 
 config_path = "/Volumes/odatacatalog_dev/odata-metadata/odata-metadata/config.json"
